@@ -8,44 +8,44 @@ import jakarta.persistence.*;
 public class Empleado {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id_empleado;
+    private Integer idEmpleado;
 
-    private String nombre_empleado;
+    private String nombreEmpleado;
 
-    private float salario_empleado;
+    private float salarioEmpleado;
    @Column
-    private Integer dias_lab;
-    public int getId_empleado() {
-        return id_empleado;
+    private Integer diasLab;
+
+
+    public Integer getIdEmpleado() {
+        return idEmpleado;
     }
 
-    public void setId_empleado(int id_empleado) {
-        this.id_empleado = id_empleado;
+    public void setIdEmpleado(Integer idEmpleado) {
+        this.idEmpleado = idEmpleado;
     }
 
-    public String getNombre_empleado() {
-        return nombre_empleado;
+    public String getNombreEmpleado() {
+        return nombreEmpleado;
     }
 
-    public void setNombre_empleado(String nombre_empleado) {
-        this.nombre_empleado = nombre_empleado;
+    public void setNombreEmpleado(String nombreEmpleado) {
+        this.nombreEmpleado = nombreEmpleado;
     }
 
-    public float getSalario_empleado() {
-        return salario_empleado;
+    public float getSalarioEmpleado() {
+        return salarioEmpleado;
     }
 
-    public Integer getDias_lab() {
-        return dias_lab;
+    public void setSalarioEmpleado(float salarioEmpleado) {
+        this.salarioEmpleado = salarioEmpleado;
     }
 
-    public void setDias_labo(Integer dias_labo) {
-        this.dias_lab = dias_lab;
+    public Integer getDiasLab() {
+        return diasLab;
     }
 
-    public void setSalario_empleado(float salario_empleado) {
-        this.salario_empleado = salario_empleado;
-
-
+    public void setDiasLab(Integer diasLab) {
+        this.diasLab = diasLab;
     }
 }

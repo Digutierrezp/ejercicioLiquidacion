@@ -1,12 +1,12 @@
 package utilities;
 
-public class Constants {
+public  class Constants {
 
-   public float auxilioTrans = 140.606F;
-   public int anio=360;
-   public int anios=720;
+   public static final float AUXILIO_TRANS = 140.606F;
+   public static final  int ANIO=360;
+   public static final int ANIOS=720;
 
-   public float porcentaje= 0.12F;
+   public static final  float PORCENTAJE= 0.12F;
 
 
 }

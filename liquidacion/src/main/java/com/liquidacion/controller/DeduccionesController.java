@@ -1,9 +1,11 @@
 package com.liquidacion.controller;
 
-import com.liquidacion.entity.Deduccion;
+import com.liquidacion.dto.DeduccionDto;
 import com.liquidacion.service.IDeducionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api")
@@ -13,14 +15,18 @@ public class DeduccionesController {
     private IDeducionService iDeducionService;
 
     @GetMapping("/deduccion")
-    public Iterable<Deduccion> mostrar() {
-        Iterable<Deduccion> listaDeduccion = iDeducionService.mostrar();
-        return listaDeduccion;
+    public List<DeduccionDto> deducciones() {
+        return iDeducionService.deducciones();
     }
-    @GetMapping("/prima/{id}")
-    public float prima(@PathVariable Integer id){
-        return (float) iDeducionService.prima(id);
+    @GetMapping("/calcularLiquidacion/{id}")
+    public DeduccionDto cacularLiquidacion(@PathVariable Integer id){
+        return iDeducionService.calcularLiquidacion(id);
     }
+    @GetMapping("/tercero")
+    public DeduccionDto empleadoTercero(){
+        return iDeducionService.empleadoTercero();
+    }
+
 
 }
  /*   @PostMapping("/prima")

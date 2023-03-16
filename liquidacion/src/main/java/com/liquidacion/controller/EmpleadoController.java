@@ -17,11 +17,13 @@ public class EmpleadoController {
         List<Empleado> listaEmpleado = iEmpleadoService.mostrar();
         return listaEmpleado;
     }
-
-
+    @GetMapping("/empleados/{id}")
+    public Empleado buscarPorId(@PathVariable ("id")Integer idEmpleado) {
+       Empleado empleado= iEmpleadoService.buscarPorId(idEmpleado);
+        return empleado;
+    }
     @PostMapping("/empleados")
     public Empleado guardar(@RequestBody Empleado empleado) {
         iEmpleadoService.guardar(empleado);
         return empleado;}
-
 }

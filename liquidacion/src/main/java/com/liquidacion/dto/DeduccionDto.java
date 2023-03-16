@@ -1,36 +1,17 @@
-package com.liquidacion.entity;
+package com.liquidacion.dto;
 
-import jakarta.persistence.*;
-@Entity
-@Table(name = "Deducciones")
-public class Deduccion {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id_deduccion;
+import com.liquidacion.entity.Empleado;
+/*import lombok.Data;
 
-    @ManyToOne
-    @JoinColumn(name = "id_empleado")
+@Data*/
+
+public class DeduccionDto {
     private Empleado empleado;
-    @Column
     private float valorPrima;
-    @Column
-    private float valorcCesantias;
-
-    @Column
+    private float valorCesantias;
     private float valorIntecesantias;
-
-    @Column
     private float valorVacaciones;
-    @Column
     private float totalLiquidacion;
-
-    public Integer getId_deduccion() {
-        return id_deduccion;
-    }
-
-    public void setId_deduccion(Integer id_deduccion) {
-        this.id_deduccion = id_deduccion;
-    }
 
     public Empleado getEmpleado() {
         return empleado;
@@ -48,12 +29,12 @@ public class Deduccion {
         this.valorPrima = valorPrima;
     }
 
-    public float getValorcCesantias() {
-        return valorcCesantias;
+    public float getValorCesantias() {
+        return valorCesantias;
     }
 
-    public void setValorcCesantias(float valorcCesantias) {
-        this.valorcCesantias = valorcCesantias;
+    public void setValorCesantias(float valorCesantias) {
+        this.valorCesantias = valorCesantias;
     }
 
     public float getValorIntecesantias() {

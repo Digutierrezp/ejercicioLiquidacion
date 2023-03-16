@@ -9,14 +9,15 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
-@EnableJpaRepositories
+
 @Repository
 public interface EmpleadoRepository extends JpaRepository<Empleado,Integer> {
 
-    List<Empleado> findAll();
+    /*List<Empleado> findAll();*/
 
-    @Override
-    Optional<Empleado> findById(Integer integer);
+
+    /*@Override
+    Optional<Empleado> findById(Integer integer);*/
 
     /* boolean getSalario_empleado();*/
    /* List<Empleado>getFindbySalario_empledo(float salarioEmpleado);

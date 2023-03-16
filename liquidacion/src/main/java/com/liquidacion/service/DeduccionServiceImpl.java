@@ -1,15 +1,16 @@
 package com.liquidacion.service;
 
-import com.liquidacion.entity.Deduccion;
 import com.liquidacion.entity.Empleado;
 
+import com.liquidacion.exceptions.EmpleadoException;
+import com.liquidacion.dto.DeduccionDto;
 import com.liquidacion.repository.DeduccionRepository;
 import com.liquidacion.repository.EmpleadoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import utilities.Constants;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,27 +20,66 @@ import java.util.Optional;
     private DeduccionRepository deduccionRepository;
     @Autowired
     private EmpleadoRepository empleadoRepository;
-    public Constants constants;
-    @Override
-    @Transactional(readOnly = true)
-    public Iterable<Deduccion> mostrar() {
-        Iterable<Deduccion> listaDeduccion = deduccionRepository.findAll();
-        return listaDeduccion;
-    }
+
+    /*public final Constants constants = new Constants();*/
+
 
     @Override
-    public float prima(Integer id_empleado) {
-        Optional<Empleado>empleado=empleadoRepository.findById(id_empleado);
-        float prima =(empleado.get().getSalario_empleado()+ constants.auxilioTrans*empleado.get().getDias_lab()/constants.anio);
-        return prima;
+    public List<DeduccionDto> deducciones() {
+       List<Empleado> empleadosLista= empleadoRepository.findAll();
+       List<DeduccionDto> listaDeduccionesDto = new ArrayList<>();
+
+       for (Empleado e:empleadosLista){
+           DeduccionDto liquidacion = calcularLiquidacion(e.getIdEmpleado());
+           listaDeduccionesDto.add(liquidacion);
+       }
+        return  listaDeduccionesDto;
     }
+    @Override
+    public DeduccionDto calcularLiquidacion(Integer id_empleado) {
+        Optional<Empleado>empleado=empleadoRepository.findById(id_empleado);
+        if (empleado.isEmpty()){
+           throw new EmpleadoException("Este empleado no existe");
+        }
+        DeduccionDto deduccionDto = new DeduccionDto();
+
+        float cesantias=empleado.get().getSalarioEmpleado()*empleado.get().getDiasLab()/Constants.ANIO;
+        float prima=empleado.get().getSalarioEmpleado()+ Constants.AUXILIO_TRANS*empleado.get().getDiasLab()/Constants.ANIO;
+        float interesCesantias= cesantias* Constants.PORCENTAJE/empleado.get().getDiasLab();
+        float vacaciones=empleado.get().getSalarioEmpleado()*empleado.get().getDiasLab()/ Constants.ANIOS;
+
+        deduccionDto.setEmpleado(empleado.get());
+        deduccionDto.setValorPrima(prima);
+        deduccionDto.setValorCesantias(cesantias);
+        deduccionDto.setValorIntecesantias(interesCesantias);
+        deduccionDto.setValorVacaciones(vacaciones);
+
+        deduccionDto.setTotalLiquidacion(prima+cesantias+interesCesantias+vacaciones);
+
+        return deduccionDto;
+    }
+    @Override
+    public DeduccionDto empleadoTercero() {
+        List<DeduccionDto> listaDeduccionesDto= deducciones();
+
+        DeduccionDto liquidacion=listaDeduccionesDto.stream()
+                .sorted((o1, o2) -> Float.compare(o2.getTotalLiquidacion(), o1.getTotalLiquidacion()))
+                .limit(3)
+                .sorted((o1, o2) -> Float.compare(o1.getTotalLiquidacion(), o2.getTotalLiquidacion()))
+                .findFirst()
+                .get();
+        /*System.out.println(
+                liquidaciones.getEmpleado().getNombre_empleado()
+        );*/
+        return liquidacion;
+    }}
     /*@Override
     public float prima(Integer id_empleado) {
         Optional<Empleado> empleado = deduccionRepository.findById_empleado(id_empleado);
         float prima = (empleado.get().getSalario_empleado() + constants.auxilioTrans) * empleado.get().getDias_lab()/constants.anio;
         return prima;
     }*/
-}/*
+/*
 
     @Override
     public float cesantia(int idEmpleado) {

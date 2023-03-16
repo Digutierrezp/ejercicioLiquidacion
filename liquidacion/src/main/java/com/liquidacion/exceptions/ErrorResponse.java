@@ -1,4 +1,4 @@
-/*package com.liquidacion.exceptions;
+package com.liquidacion.exceptions;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -27,4 +27,4 @@ public class ErrorResponse {
 
 
 
-}*/
+}
