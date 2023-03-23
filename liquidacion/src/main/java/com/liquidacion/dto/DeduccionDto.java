@@ -1,6 +1,8 @@
 package com.liquidacion.dto;
 
 import com.liquidacion.entity.Empleado;
+
+import java.util.function.Supplier;
 /*import lombok.Data;
 
 @Data*/
@@ -13,8 +15,8 @@ public class DeduccionDto {
     private float valorVacaciones;
     private float totalLiquidacion;
 
-    public Empleado getEmpleado() {
-        return empleado;
+    public Empleado getEmpleado(Empleado empleado) {
+        return this.empleado;
     }
 
     public void setEmpleado(Empleado empleado) {
@@ -60,4 +62,6 @@ public class DeduccionDto {
     public void setTotalLiquidacion(float totalLiquidacion) {
         this.totalLiquidacion = totalLiquidacion;
     }
+
+
 }

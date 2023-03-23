@@ -14,6 +14,8 @@ public class EmpleadoServiceImpl implements IEmpleadoService{
 
     @Autowired
     private EmpleadoRepository empleadoRepository;
+
+
     @Override
     public List<Empleado> mostrar() {
         List<Empleado> listasEmpleados=empleadoRepository.findAll();

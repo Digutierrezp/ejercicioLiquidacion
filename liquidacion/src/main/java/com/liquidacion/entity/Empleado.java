@@ -16,6 +16,13 @@ public class Empleado {
    @Column
     private Integer diasLab;
 
+    public Empleado(int idEmpleado, String nombreEmpleado, int salarioEmpleado, int diasLab) {
+    }
+
+    public Empleado() {
+
+    }
+
 
     public Integer getIdEmpleado() {
         return idEmpleado;

@@ -12,7 +12,7 @@ import java.util.Optional;
 @Repository
 public interface DeduccionRepository  extends JpaRepository<Deduccion,Integer>
 {
-   List<Deduccion> findAll();
+
 
 
 }
